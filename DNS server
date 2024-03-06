@@ -1,0 +1,24 @@
+class DNSResolver:
+    def __init__(self):
+        self.cache = {}
+
+    def resolve(self, domain):
+        if domain in self.cache:
+            return self.cache[domain]
+        else:
+            try:
+                ip_addresses = self.query_dns_servers(domain)
+                self.cache[domain] = ip_addresses
+                return ip_addresses
+            except DNSResolveError as e:
+                backup_ip_addresses = self.query_backup_dns_servers(domain)
+                return backup_ip_addresses
+
+    def query_dns_servers(self, domain):
+        pass
+
+    def query_backup_dns_servers(self, domain):
+        pass
+
+class DNSResolveError(Exception):
+    pass
