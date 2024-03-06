@@ -1,0 +1,25 @@
+class DNSUpdater:
+    def __init__(self):
+        self.dns_records = {}
+
+    def update_record(self, domain, ip_address):
+        self.dns_records[domain] = ip_address
+
+    def delete_record(self, domain):
+        if domain in self.dns_records:
+            del self.dns_records[domain]
+
+    def get_record(self, domain):
+        return self.dns_records.get(domain, None)
+
+    def list_records(self):
+        return self.dns_records
+
+# Example Usage
+updater = DNSUpdater()
+updater.update_record("example.com", "192.0.2.1")
+updater.update_record("sub.example.com", "192.0.2.2")
+print(updater.get_record("example.com"))  # Output: 192.0.2.1
+print(updater.list_records())  # Output: {'example.com': '192.0.2.1', 'sub.example.com': '192.0.2.2'}
+updater.delete_record("example.com")
+print(updater.list_records())  # Output: {'sub.example.com': '192.0.2.2'}
